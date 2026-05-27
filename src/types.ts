@@ -12,19 +12,25 @@ export type Key = `${File}${Rank}`
 
 export type Square = 'empty' 
 
-export type Color = 'white' | 'black' 
+export type Player = 'playerOne' | 'playerTwo' | "none"
 
 export type GameState = 'init' | 'playing' | 'over';
 
-export type PieceValue = Color | Square;
+export type PieceValue = "x" | "o" | Square;
 
+
+export type Turn = Player;
+
+export type Position = [number, number]
 
 export type Pieces = Map<Key, PieceValue>
 
 export interface State {
   gameState: GameState;
   board: HTMLElement;
-  container?: HTMLElement;
-  bounds: Memo<DOMRectReadOnly>
+  container: HTMLElement;
+  bounds: Memo<DOMRectReadOnly>;
+  pieces: Pieces, 
+  turn?:Turn
 }
 

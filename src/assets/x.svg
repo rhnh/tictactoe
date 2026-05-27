@@ -1,0 +1,9 @@
+
+
+<svg  xmlns="http://www.w3.org/2000/svg"  aria-label="X" role="img" viewBox="0 0 128 128" style="visibility: visible; ">
+
+<path class="animated" d="M16,16L112,112" style="stroke: rgb(84, 84, 84); stroke-dasharray: 135.765px; stroke-dashoffset: 0px; transition: stroke-dashoffset 0.225s cubic-bezier(0.4, 0, 0.2, 1);
+"></path>
+<path class="animated" d="M112,16L16,112" style="stroke: rgb(84, 84, 84); stroke-dasharray: 135.765px; stroke-dashoffset: 0px;"></path>
+
+</svg>

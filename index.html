@@ -3,21 +3,36 @@
 
 <head>
   <meta charset="UTF-8" />
-  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="icon" type="image/svg+xml" href="/public/favicon.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/public/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/public/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/public/favicon-16x16.png">
+  <link rel="manifest" href="/site.webmanifest">
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="stylesheet" href="src/style.css">
-  <title>frogs</title>
+
+  <title>Tic Tac Toe</title>
   <style>
     #app {
       width: 500px;
       height: 500px;
+    }
+
+    .animated {
+      transition: stroke-dashoffset 0.225s cubic-bezier(0.4, 0, 0.2, 1);
     }
   </style>
 </head>
 
 <body>
   <div id="app"></div>
-  <script type="module" src="dist/frogs.min.js"></script>
+  <svg jsname="uECznc" aria-label="X" role="img" viewBox="0 0 128 128" style="visibility: visible;">
+    <path class="animated" d="M16,16L112,112"
+      style="stroke: rgb(84, 84, 84); stroke-dasharray: 135.765px; stroke-dashoffset: 0px;"></path>
+    <path class="animated" d="M112,16L16,112"
+      style="stroke: rgb(84, 84, 84); stroke-dasharray: 135.765px; stroke-dashoffset: 0px;"></path>
+  </svg>>
+  <script type="module" src="dist/tictactoe.min.js"></script>
 </body>
 
 </html>

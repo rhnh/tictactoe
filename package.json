@@ -1,12 +1,12 @@
 {
-  "name": "frogs",
+  "name": "tictactoe",
   "version": "1.0.3",
-  "description": "a frogs game",
+  "description": "a tictactoe game",
   "license": "GPL-3.0-or-later",
-  "main": "dist/frogs.min.js",
-  "types": "frogs.d.ts",
+  "main": "dist/tictactoe.min.js",
+  "types": "tictactoe.d.ts",
   "exports": {
-    ".": "./dist/frogs.js",
+    ".": "./dist/tictactoe.js",
     "./assets/*": "./assets/*",
     "./*": "./dist/*.js"
   },
@@ -23,8 +23,8 @@
     "lint": "eslint src/*.ts",
     "format": "prettier --write .",
     "check-format": "prettier --check .",
-    "bundle": "esbuild src/main.ts --bundle --format=esm --outfile=dist/frogs.min.js --minify",
-    "dev": "esbuild src/main.ts --bundle --format=esm --outfile=dist/frogs.min.js --minify --watch",
+    "bundle": "esbuild src/main.ts --bundle --format=esm --outfile=dist/tictactoe.min.js --minify",
+    "dev": "esbuild src/main.ts --bundle --format=esm --outfile=dist/tictactoe.min.js --minify --watch",
     "dist": "$npm_execpath run compile && $npm_execpath run bundle",
     "test": "vitest run",
     "test:watch": "vitest",

@@ -1,0 +1,49 @@
+:root {
+  --border-space: 3px;
+}
+
+container {
+  display: block;
+  width: 500px;
+  height: 500px;
+  background-color: antiquewhite;
+}
+
+board {
+  display: grid;
+  background-image: var(--bg);
+  background-size: cover;
+
+  /* clip-path: inset(3px); */
+  /* optional to hide outer borders */
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  gap: 3px;
+}
+
+.animated {
+  background-color: red;
+  transition: stroke-dashoffset 0.225s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: stroke-dashoffset 0.225s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: stroke-dashoffset 0.225s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: stroke-dashoffset 0.225s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.value-x {
+  background-image: url(./assets/x.svg);
+
+  background-size: cover;
+}
+
+
+.value-o {
+  background-image: url(public/icon.svg);
+  background-color: green;
+}
+
+.square {
+  background-color: aliceblue;
+
+}
