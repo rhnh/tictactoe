@@ -23,27 +23,43 @@ board {
   gap: 3px;
 }
 
-.animated {
-  background-color: red;
-  transition: stroke-dashoffset 0.225s cubic-bezier(0.4, 0, 0.2, 1);
-  transition: stroke-dashoffset 0.225s cubic-bezier(0.4, 0, 0.2, 1);
-  transition: stroke-dashoffset 0.225s cubic-bezier(0.4, 0, 0.2, 1);
-  transition: stroke-dashoffset 0.225s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.value-x {
-  background-image: url(./assets/x.svg);
-
-  background-size: cover;
-}
 
 
-.value-o {
-  background-image: url(public/icon.svg);
-  background-color: green;
-}
 
 .square {
   background-color: aliceblue;
-
 }
+
+ .animated {
+   stroke-dasharray: 100;
+   stroke-dashoffset: 100;
+
+   animation: drawO 0.4s ease-out forwards;
+ }
+
+ @keyframes drawO {
+   to {
+     stroke-dashoffset: 0;
+   }
+ }
+
+ .x-line {
+   stroke: #EA4335;
+   stroke-width: 10;
+   stroke-linecap: round;
+
+   stroke-dasharray: 100;
+   stroke-dashoffset: 100;
+
+   animation: drawX 0.2s ease-out forwards;
+ }
+
+ .x2 {
+   animation-delay: 0.2s;
+ }
+
+ @keyframes drawX {
+   to {
+     stroke-dashoffset: 0;
+   }
+ }

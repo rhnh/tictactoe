@@ -1,19 +1,23 @@
-import { files, ranks, type Key,  type Position, type State, type Turn } from "./types"
+import {
+  files,
+  ranks,
+  type Key,
+  type Pieces,
+  type Position,
+  type State,
+  type Turn,
+} from "./types"
 
 export interface Memo<A> {
   (): A
   clear: () => void
 }
 
-
 export const allKeys = files
   .map((f) => ranks.map((r) => `${f}${r}` as Key))
   .flat()
 
-  
 export const keys = [...allKeys] as const
-
-
 
 export type BoxType<T> = {
   map: (f: (t: T) => T) => BoxType<T>
@@ -48,27 +52,29 @@ export const keyToPosition = (k: Key): Position => [
   k.charCodeAt(1) - 48,
 ]
 
-
-export const getRandomTurn = (): Turn => 
-   (Math.random() > 0.5) ? 'playerOne': 'playerTwo'
-
-
+export const getRandomTurn = (): Turn =>
+  Math.random() > 0.5 ? "playerOne" : "playerTwo"
 
 export const getPositionFromBound =
   (state: State) =>
-    (p: Position): Position => {
-    console.log(p)
-    const x = Math.floor(
-        p[0] / (state.bounds().width/3)
-    )
-    const y = Math.floor(
-      p[1] / ( state.bounds().width / 3)  ) 
-    
+  (p: Position): Position => {
+    const x = Math.floor(p[0] / (state.bounds().width / 3))
+    const y = Math.floor(p[1] / (state.bounds().width / 3))
+
     return [x, y]
   }
-
 
 export const getKeyFromPosition = (p: Position) =>
   allKeys[Math.abs(3 * p[0] + p[1])]
 
-export const switchPlayer = (turn:Turn) => turn==='playerOne' ? 'playerTwo' : 'playerOne'
+export const switchPlayer = (turn: Turn) =>
+  turn === "playerOne" ? "playerTwo" : "playerOne"
+
+export const getRow = (pieces: Pieces) => (n: number) => {
+  const p = []
+
+  for (const [k, _] of pieces) {
+    if (k.charCodeAt(0) == 98 - n) p.push(k)
+  }
+  return p
+}
