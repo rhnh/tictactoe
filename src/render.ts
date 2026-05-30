@@ -1,4 +1,10 @@
-import type {Key, Pieces, PieceValue, State} from "./types"
+import {
+  ranks,
+  type Key,
+  type Pieces,
+  type PieceValue,
+  type State,
+} from "./types"
 import {allKeys, Box, id, memo} from "./utils"
 
 const initPieces = (): Pieces => {
@@ -20,6 +26,7 @@ export const init = (): State => {
     bounds: bounds,
     pieces: initPieces(),
     turn: "playerOne",
+    totalRanks: ranks.length,
   }
 
   return state

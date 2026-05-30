@@ -70,11 +70,60 @@ export const getKeyFromPosition = (p: Position) =>
 export const switchPlayer = (turn: Turn) =>
   turn === "playerOne" ? "playerTwo" : "playerOne"
 
-export const getRow = (pieces: Pieces) => (n: number) => {
-  const p = []
+export const getRow = (pieces: Pieces) => (key: Key) => {
+  const keys: Key[] = []
 
   for (const [k, _] of pieces) {
-    if (k.charCodeAt(0) == 98 - n) p.push(k)
+    if (k[0] === key[0]) keys.push(k)
   }
-  return p
+  return keys
 }
+
+export const getColumn = (pieces: Pieces) => (key: Key) => {
+  const keys: Key[] = []
+
+  for (const [k, _] of pieces) {
+    if (k[1] === key[1]) keys.push(k)
+  }
+  return keys
+}
+
+export const getDiagonalDown = (n: number) => {
+  const keys: Key[] = []
+  for (let i = 0; i < n; i++) {
+    const key = (String.fromCharCode(i + 97) +
+      String.fromCharCode(49 + i)) as Key
+    keys.push(key)
+  }
+  return keys
+}
+export const getDiagonalUp = (n: number) => {
+  const keys: Key[] = []
+  let x = n - 1
+  for (let i = 0; i < n; i++) {
+    const key = (String.fromCharCode(97 - (i - x)) +
+      String.fromCharCode(49 - (i - x))) as Key
+    keys.push(key)
+  }
+  return keys
+}
+
+export const getWinner =
+  (state: State) =>
+  (keys: Key[]): Turn | undefined => {
+    const {pieces} = state
+
+    const x = keys
+      .map((a) => {
+        return pieces.get(a) === "x"
+      })
+      .filter((r) => r === true).length
+
+    const o = keys
+      .map((a) => {
+        return pieces.get(a) === "o"
+      })
+      .filter((r) => r === true).length
+    if (x === 3) return state.turn
+    if (o === 3) return state.turn
+  }
