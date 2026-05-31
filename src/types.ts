@@ -3,7 +3,7 @@ import type {Memo} from "./utils"
 export const ranks = ["1", "2", "3"] as const
 
 export const files = ["a", "b", "c"] as const
-
+export const totalRanks = ranks.length
 export type Rank = (typeof ranks)[number]
 
 export type File = (typeof files)[number]

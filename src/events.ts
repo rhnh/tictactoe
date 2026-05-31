@@ -1,13 +1,10 @@
 import {reRender} from "./render"
 import type {PieceValue, State} from "./types"
 import {
-  getColumn,
-  getDiagonalDown,
-  getDiagonalUp,
   getKeyFromPosition,
   getPositionFromBound,
-  getRow,
-  getWinner,
+  getRandomKey,
+  isGameOver,
   switchPlayer,
 } from "./utils"
 
@@ -30,18 +27,22 @@ export const events = (state: State): State => {
       state.pieces.set(key, "x")
       value = "x"
     }
+    state.pieces.set(key, value)
     reRender(state)(key, value)
 
-    if (
-      getWinner(state)(getColumn(state.pieces)(key)) ||
-      getWinner(state)(getDiagonalUp(3)) ||
-      getWinner(state)(getDiagonalDown(3)) ||
-      getWinner(state)(getRow(state.pieces)(key))
-    ) {
-      state.turn = switchPlayer(state.turn)
-      console.log("winner", state.turn)
-      state.gameState = "over"
-    }
+    if (value === "o") value = "x"
+    else if ((value = "x")) value = "o"
+    if (isGameOver(state)(key)) return
+
+    const random = getRandomKey(state.pieces)
+    if (!random) return
+    state.pieces.set(random, value)
+
+    if (random) reRender(state)(random, value)
+
+    state.turn = switchPlayer(state.turn)
+    console.log("winner", state.turn)
+    isGameOver(state)(random)
   })
 
   return state

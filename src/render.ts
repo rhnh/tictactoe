@@ -175,6 +175,7 @@ export const renderSquare = (state: State): State => {
 
 export const reRender = (state: State) => (key: Key, v: PieceValue) => {
   const {board} = state
+  if (!state.pieces.has(key)) return
   const el = board.querySelector(`#key-${key}`)
   if (!el) return
   if (v === "o") el.appendChild(renderCircle(svg("visible", "animated")))

@@ -1,6 +1,7 @@
 import {
   files,
   ranks,
+  totalRanks,
   type Key,
   type Pieces,
   type Position,
@@ -58,14 +59,14 @@ export const getRandomTurn = (): Turn =>
 export const getPositionFromBound =
   (state: State) =>
   (p: Position): Position => {
-    const x = Math.floor(p[0] / (state.bounds().width / 3))
-    const y = Math.floor(p[1] / (state.bounds().width / 3))
+    const x = Math.floor(p[0] / (state.bounds().width / state.totalRanks))
+    const y = Math.floor(p[1] / (state.bounds().width / state.totalRanks))
 
     return [x, y]
   }
 
 export const getKeyFromPosition = (p: Position) =>
-  allKeys[Math.abs(3 * p[0] + p[1])]
+  allKeys[Math.abs(totalRanks * p[0] + p[1])]
 
 export const switchPlayer = (turn: Turn) =>
   turn === "playerOne" ? "playerTwo" : "playerOne"
@@ -95,16 +96,18 @@ export const getDiagonalDown = (n: number) => {
       String.fromCharCode(49 + i)) as Key
     keys.push(key)
   }
+
   return keys
 }
 export const getDiagonalUp = (n: number) => {
   const keys: Key[] = []
   let x = n - 1
-  for (let i = 0; i < n; i++) {
-    const key = (String.fromCharCode(97 - (i - x)) +
-      String.fromCharCode(49 - (i - x))) as Key
+  for (let i = 0; i < 3; i++) {
+    const key = (String.fromCharCode(99 - i) +
+      String.fromCharCode(49 + i)) as Key
     keys.push(key)
   }
+
   return keys
 }
 
@@ -113,17 +116,47 @@ export const getWinner =
   (keys: Key[]): Turn | undefined => {
     const {pieces} = state
 
-    const x = keys
-      .map((a) => {
-        return pieces.get(a) === "x"
-      })
-      .filter((r) => r === true).length
+    if (
+      keys.map((a) => pieces.get(a) === "x").filter((r) => r === true).length ==
+        state.totalRanks ||
+      keys.map((a) => pieces.get(a) === "o").filter((r) => r === true)
+        .length === state.totalRanks
+    )
+      return state.turn
+  }
 
-    const o = keys
-      .map((a) => {
-        return pieces.get(a) === "o"
-      })
-      .filter((r) => r === true).length
-    if (x === 3) return state.turn
-    if (o === 3) return state.turn
+export const getNextAvailableKey = (p: Pieces): Key | null => {
+  for (const [k, v] of p) {
+    if (v === "empty") return k
+  }
+
+  return null
+}
+
+export const getAllAvailableKeys = (p: Pieces): Key[] => {
+  const keys: Key[] = []
+  for (const [k, v] of p) {
+    if (v === "empty") keys.push(k)
+  }
+  return keys
+}
+
+export const getRandomKey = (p: Pieces): Key => {
+  const keys = getAllAvailableKeys(p)
+  return keys[Math.floor(Math.random() * keys.length)]
+}
+
+export const isGameOver =
+  (state: State) =>
+  (key: Key): boolean => {
+    if (
+      getWinner(state)(getColumn(state.pieces)(key)) ||
+      getWinner(state)(getRow(state.pieces)(key)) ||
+      getWinner(state)(getDiagonalUp(state.totalRanks)) ||
+      getWinner(state)(getDiagonalDown(state.totalRanks))
+    ) {
+      state.gameState = "over"
+      return true
+    }
+    return false
   }
